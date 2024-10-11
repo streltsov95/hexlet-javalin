@@ -12,6 +12,10 @@ public class HelloWorld {
         // Описываем, что будет происходить при GET запросе на адрес /
         app.get("/", ctx -> ctx.result("Hello World"));
         app.get("/users", ctx -> ctx.result("GET /users"));
+        app.get("/hello", ctx -> {
+            var name = ctx.queryParamAsClass("name", String.class).getOrDefault("World");
+            ctx.result("Hello, " + name + "!");
+        });
         app.post("/users", ctx -> ctx.result("POST /users"));
         app.start(7070); // Стартуем веб-сервер
     }
